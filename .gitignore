@@ -1,0 +1,16 @@
+# dotenv environment variable files
+.env
+
+# Optional npm cache directory
+.npm
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# nyc test coverage
+.nyc_output
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
