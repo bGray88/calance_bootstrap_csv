@@ -14,6 +14,13 @@ const getGithubInfo = async (req, res) => {
         message: constants.error_message,
       });
   })
+
+  const data = {
+    description: 'Please type a destination directory and click the process button to start.'
+  };
+  // render the info page
+  res.status(200);
+  res.render('inputFrame', data);
 }
 
 module.exports = {
