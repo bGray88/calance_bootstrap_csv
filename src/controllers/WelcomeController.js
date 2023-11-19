@@ -1,5 +1,11 @@
 const indexRouting = async (req, res) => {
-  "PROCESS_BUTTON_PUSH"
+  const data = {
+    heading: 'Hello Calance!',
+    description: 'Welcome to my simple application that collects Github info and writes it to a CSV.'
+  };
+  // render the welcome page
+  res.status(200);
+  res.render('basicFrame', data);
 }
 
 module.exports = {
