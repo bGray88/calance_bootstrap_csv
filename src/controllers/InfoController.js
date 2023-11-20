@@ -1,7 +1,6 @@
 const { generateOptions } = require('../utils/utils');
 const axios = require('axios')
 const fs    = require('fs')
-const path = require('path');
 const { constants } = require('buffer');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter
 
@@ -21,79 +20,80 @@ const displayForm = async (req, res) => {
   const data = {
     page: "input",
     title: "Github CSV Data",
-    description: 'Please type a destination directory and click the process button to start.'
+    description: 'Please type a destination directory and click the process button to start. \
+      (Relative directory will be used if a full path is not given)'
   };
   res.status(200);
   res.render('basicFrame', data);
 }
 
+const displayInfo = async (req, res) => {
+  const data = {
+    page: "table",
+    title: "Github CSV Data",
+    description: 'Your CSV has been saved to the desired location with the data listed below.',
+    table: req.session.repos
+  };
+  req.session.valid = null;
+
+  res.status(200);
+  res.render('basicFrame', data);
+}
+
 const processInfo = async (req, res) => {
-  const getInfo = async (req, res) => {
-
-    const folderName = req.query.destination;
-    try {
-      if (!fs.existsSync(folderName)) {
-        fs.mkdirSync(folderName);
-      }
-    } catch (err) {
-      console.error(err);
-    }
   
-    const options = generateOptions(`/repos/twbs/bootstrap/releases`);
-    let repos = []
-
-    await axios.get(options.url, { headers: options.headers })
-      .then((res) => {
-        repos = res.data
-    }).catch('error', (e) => {
-        console.log(e);
-        res.status(500).send({
-          message: constants.errorMessage
-        });
-    })
-
-    if (repos) {
-      repos = repos.map((repo) => (
-        {
-          created_at: new Date(repo.created_at).toUTCString(),
-          tag_name: repo.tag_name,
-          zipball_url: repo.zipball_url
-        }
-      ))
+  const folderName = req.query.destination;
+  try {
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName, { recursive: true })
     }
+  } catch (err) {
+    console.log(err);
+  }
 
-    const filename = "bootstrap_github_info.csv";
-    const csvWriter = createCsvWriter({
-      path: `${folderName}/${filename}`,
-      header: [
-        {id: 'created_at', title: 'CREATED_DATE'},
-        {id: 'tag_name', title: 'TAG_NAME'},
-        {id: 'zipball_url', title: 'URL_OF_DIST_ZIP'}
-      ]
+  const options = generateOptions(`/repos/twbs/bootstrap/releases`);
+  let repos = []
+
+  await axios.get(options.url, { headers: options.headers })
+    .then((res) => {
+      repos = res.data
+  }).catch('error', (err) => {
+      console.log(err);
+      res.status(500).send({
+        message: constants.errorMessage
+      });
+  })
+
+  if (repos) {
+    repos = repos.map((repo) => (
+      {
+        created_at: new Date(repo.created_at).toUTCString(),
+        tag_name: repo.tag_name,
+        zipball_url: repo.zipball_url
+      }
+    ))
+  }
+
+  const filename = "bootstrap_github_info.csv";
+  const csvWriter = createCsvWriter({
+    path: `${folderName}/${filename}`,
+    header: [
+      {id: 'created_at', title: 'Created Date'},
+      {id: 'tag_name', title: 'Tag Name'},
+      {id: 'zipball_url', title: 'URL of Dist. Zip'}
+    ]
+  });
+
+  csvWriter.writeRecords(repos)
+    .then(() => {
+      console.log('...Done');
     });
 
-    csvWriter.writeRecords(repos)
-      .then(() => {
-        console.log('...Done');
-      });
-
-    return { repos: repos };
-  }
-
-  const displayInfo = async (req, res) => {
-    const data = {
-      page: "table",
-      title: "Github CSV Data",
-      description: 'Your CSV has been saved to the desired location.',
-      table: req.repos
-    };
-    res.render('basicFrame', data);
-  }
-
-  const data = await getInfo(req, res)
-  await displayInfo(data, res)
+  res.status(200);
+  req.session.repos = repos;
+  res.redirect('/api/v1/githubInfo/displayInfo');
 }
 
 module.exports = {
-  displayForm, processInfo
+  displayForm, displayInfo, processInfo
 }
