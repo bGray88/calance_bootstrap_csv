@@ -4,9 +4,9 @@
 Built using Node and Express, this simple app will fetch some repo data from the Bootstrap Github page.
 
 ## Usage
-Clone the repo to a destination of your choice: 'git clone git@github.com:bGray88/calance_bootstrap_csv.git'
-The app can be run in one of two ways:
-* 1a) To run it using npm and node: navigate to the root directory of this project and type-
+- Clone the repo to a destination of your choice: 'git clone git@github.com:bGray88/calance_bootstrap_csv.git'
+- The app can be run in one of two ways:
+* Ia) To run it using npm and node: navigate to the root directory of this project and type-
 ```sh
 npm install
 ```
@@ -15,12 +15,12 @@ and then-
 npm install
 ```
 (If npm is not found then node is not installed and the process of installing NVM, NPM, and Node will need to come first, but...)
-* 1b) The alternate method would be to double click the app in the 'dist' directory (system specific- MACOS, WIN, LINUX).
-* 2) Navigate to localhost:8000 in your browser of your choice.
-* 3) Click on 'Collect Info' in the Navbar.
-* 4) Input an absolute or relative save destination for your CSV file and click the 'Process' button.
-* 5) View the info in the new window about the CSV file created.
-* 6) Locate your new CSV file in destination you had selected.
+* Ib) The alternate method would be to double click the app in the 'dist' directory (system specific- MACOS, WIN, LINUX).
+* II) Navigate to localhost:8000 in your browser of your choice.
+* III) Click on 'Collect Info' in the Navbar.
+* IV) Input an absolute or relative save destination for your CSV file and click the 'Process' button.
+* V) View the info in the new window about the CSV file created.
+* VI) Locate your new CSV file in destination you had selected.
 
 ![alt text](src/public/images/readme/readme-sample-form.png)
 
