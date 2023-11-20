@@ -2,6 +2,13 @@
 ## API Data Fetcher (Github Bootstrap Repo)
 
 Built using Node and Express, this simple app will fetch some repo data from the Bootstrap Github page.
+The app can be run via npm in two ways:
+Open up a terminal, type 
+```sh
+npm start
+```
+and navigating to localhost:8000 in the browser,
+or by double clicking the app in the dist folder (system specific) and navigating to localhost:8000 in the browser.
 
 ![alt text](src/public/images/readme/readme-sample-form.png)
 
