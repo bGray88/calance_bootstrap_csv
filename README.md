@@ -3,8 +3,8 @@
 
 Built using Node and Express, this simple app will fetch some repo data from the Bootstrap Github page.
 
-* 1a) The app can be run in one of two ways:
-To run it using npm and node: open up a terminal, type 
+The app can be run in one of two ways:
+* 1a) To run it using npm and node: open up a terminal and type-
 ```sh
 npm start
 ```
@@ -13,12 +13,12 @@ and then-
 npm install
 ```
 (If npm is not found then node is not installed and the process of installing NVM, NPM, and Node will need to come first, but...)
-* 1b) The alternate method would be double clicking the app in the dist folder (system specific- MACOS, WIN, LINUX).
-* 2) Navigate to localhost:8000 in your browser of choice.
+* 1b) The alternate method would be to double click the app in the 'dist' directory (system specific- MACOS, WIN, LINUX).
+* 2) Navigate to localhost:8000 in your browser of your choice.
 * 3) Click on 'Collect Info' in the Navbar.
-* 4) Input an absolute or relative save destination for your CSV file.
+* 4) Input an absolute or relative save destination for your CSV file and click the 'Process' button.
 * 5) View the info in the new window about the CSV file created.
-* 6) Locate CSV file in destination selected.
+* 6) Locate your new CSV file in destination you had selected.
 
 ![alt text](src/public/images/readme/readme-sample-form.png)
 
