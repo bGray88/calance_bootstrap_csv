@@ -1,11 +1,10 @@
 const constants = require('../bin/helpers/constants');
 
-const generateOptions = (_path) => {
+const generateOptions = (path) => {
   return options = {
-    hostname: constants.hostname,
-    path: _path,
+    url: `https://${constants.hostName}${path}`,
     headers: {
-      'User-Agent': constants.user_agent
+      'X-GitHub-Api-Version': '2022-11-28'
     }
   }
 }

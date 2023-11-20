@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getGithubInfo
-} = require('../controllers/GitInfoController')
+  displayForm,
+  processInfo
+} = require('../controllers/InfoController')
 
-router.get('/getGithubInfo', getGithubInfo)
+router.get('/displayForm', displayForm)
+router.get('/processInfo', processInfo)
 
 module.exports = router;
