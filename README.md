@@ -3,10 +3,12 @@
 
 Built using Node and Express, this simple app will fetch some repo data from the Bootstrap Github page.
 
+## Usage
+Clone the repo to a destination of your choice: 'git clone git@github.com:bGray88/calance_bootstrap_csv.git'
 The app can be run in one of two ways:
-* 1a) To run it using npm and node: open up a terminal and type-
+* 1a) To run it using npm and node: navigate to the root directory of this project and type-
 ```sh
-npm start
+npm install
 ```
 and then-
 ```sh
