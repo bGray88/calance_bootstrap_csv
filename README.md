@@ -12,7 +12,7 @@ npm install
 ```
 and then-
 ```sh
-npm install
+npm start
 ```
 (If npm is not found then node is not installed and the process of installing NVM, NPM, and Node will need to come first, but...)
 * Ib) The alternate method would be to double click the app in the 'dist' directory (system specific- MACOS, WIN, LINUX).
