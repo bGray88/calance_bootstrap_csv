@@ -11,8 +11,15 @@
 
     <main>
       <div class="jumbotron">
-        <h1> <%= heading %> </h1>
-        <h3> <%= description %> </h3>
+        <% if (typeof heading !== "undefined") { %>
+          <h2> <%= heading %> </h2>
+        <% } %>
+        <% if (typeof description !== "undefined") { %>
+          <h3> <%= description %> </h3>
+        <% } %>
+        <% if (typeof page !== "undefined") { %>
+          <%- include('./partials/' + page); %>
+        <% } %>
       </div>
     </main>
 

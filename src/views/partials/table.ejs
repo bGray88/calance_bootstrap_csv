@@ -1,0 +1,18 @@
+<% if (table.length) { %>
+  <table class="table table-hover">
+    <tr><thead class="thead-light">
+      <th>Created Date</th><th>Tag Name</th><th>URL of Dist. ZIP</th>
+    </thead></tr>
+    <tr>
+      <% for (let i = 0; i < table.length; i++) { %>
+        <tr>
+          <td><%= table[i].created_at %></td>
+          <td><%= table[i].tag_name %></td>
+          <td><%= table[i].zipball_url %></td>
+        </tr>
+      <% } %>
+    </tr>
+  </table>
+<% } else { %>
+  <h4>You've got an empty table mate!</h4>
+<% } %>
