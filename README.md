@@ -8,7 +8,7 @@ Built using Node and Express, this simple app will fetch some repo data from the
 - The app can be run in one of two ways:
 * Ia) To run via app double click the app in the 'dist' directory for your system specific preferrence- MACOS, WIN, LINUX.
 * Ib) The alternate method would be to run it using npm and node: navigate to the root directory of this project and type-
-* ```sh
+```sh
 npm install
 ```
 ```sh
