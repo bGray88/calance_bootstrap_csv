@@ -1,8 +1,7 @@
 const { generateOptions } = require('../utils/utils');
 const axios = require('axios')
-const fs    = require('fs')
 const { constants } = require('buffer');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter
+const fileSystem = require('../bin/helpers/fileSystem')
 
 // const { generateRepos } = require('../fixtures/fixtures') # For Testing
 
@@ -27,6 +26,17 @@ const displayForm = async (req, res) => {
   res.render('basicFrame', data);
 }
 
+const processForm = async (req, res) => {
+  folderPath = fileSystem.createFolder(req.query.destination);
+
+  if (folderPath) {
+    req.session.folderPath = folderPath
+    res.redirect('/api/v1/githubInfo/processInfo');
+  } else {
+    res.redirect('/api/v1/githubInfo/displayForm');
+  }
+} 
+
 const displayInfo = async (req, res) => {
   const data = {
     page: "table",
@@ -34,7 +44,7 @@ const displayInfo = async (req, res) => {
     description: 'Your CSV has been saved to the desired location with the data listed below.',
     table: req.session.repos
   };
-  req.session.valid = null;
+  req.session.repos = null;
 
   res.status(200);
   res.render('basicFrame', data);
@@ -42,15 +52,6 @@ const displayInfo = async (req, res) => {
 
 const processInfo = async (req, res) => {
   
-  const folderName = req.query.destination;
-  try {
-    if (!fs.existsSync(folderName)) {
-      fs.mkdirSync(folderName, { recursive: true })
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
   const options = generateOptions(`/repos/twbs/bootstrap/releases`);
   let repos = []
 
@@ -65,7 +66,7 @@ const processInfo = async (req, res) => {
   })
 
   if (repos) {
-    repos = repos.map((repo) => (
+    req.session.repos = repos.map((repo) => (
       {
         created_at: new Date(repo.created_at).toUTCString(),
         tag_name: repo.tag_name,
@@ -74,26 +75,13 @@ const processInfo = async (req, res) => {
     ))
   }
 
-  const filename = "bootstrap_github_info.csv";
-  const csvWriter = createCsvWriter({
-    path: `${folderName}/${filename}`,
-    header: [
-      {id: 'created_at', title: 'Created Date'},
-      {id: 'tag_name', title: 'Tag Name'},
-      {id: 'zipball_url', title: 'URL of Dist. Zip'}
-    ]
-  });
-
-  csvWriter.writeRecords(repos)
-    .then(() => {
-      console.log('...Done');
-    });
+  fileSystem.createCsv("bootstrap_github_info.csv", req.session.repos, req.session.folderPath);
+  req.session.folderPath = null;
 
   res.status(200);
-  req.session.repos = repos;
   res.redirect('/api/v1/githubInfo/displayInfo');
 }
 
 module.exports = {
-  displayForm, displayInfo, processInfo
+  displayForm, processForm, displayInfo, processInfo
 }
