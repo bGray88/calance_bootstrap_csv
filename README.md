@@ -6,16 +6,15 @@ Built using Node and Express, this simple app will fetch some repo data from the
 ## Usage
 - Clone the repo to a destination of your choice: 'git clone git@github.com:bGray88/calance_bootstrap_csv.git'
 - The app can be run in one of two ways:
-* Ia) To run it using npm and node: navigate to the root directory of this project and type-
-```sh
+* Ia) To run via app double click the app in the 'dist' directory for your system specific preferrence- MACOS, WIN, LINUX.
+* Ib) The alternate method would be to run it using npm and node: navigate to the root directory of this project and type-
+* ```sh
 npm install
 ```
-and then-
 ```sh
 npm start
 ```
-(If npm is not found then node is not installed and the process of installing NVM, NPM, and Node will need to come first, but...)
-* Ib) The alternate method would be to double click the app in the 'dist' directory (system specific- MACOS, WIN, LINUX).
+(If npm is not found then node is not installed and the process of installing NVM, NPM, and Node will need to come first)
 * II) Navigate to localhost:8000 in your browser of your choice.
 * III) Click on 'Collect Info' in the Navbar.
 * IV) Input an absolute or relative save destination for your CSV file and click the 'Process' button.
