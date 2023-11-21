@@ -6,7 +6,7 @@ Built using Node and Express, this simple app will fetch some repo data from the
 ## Usage
 - Clone the repo to a destination of your choice: 'git clone git@github.com:bGray88/calance_bootstrap_csv.git'
 - The app can be run in one of two ways:
-* Ia) To run via app double click the app in the 'dist' directory for your system specific preferrence- MACOS, WIN, LINUX.
+* Ia) To run via app, double click the app in the 'dist' directory for your system specific preference- MACOS, WIN, LINUX.
 * Ib) The alternate method would be to run it using npm and node: navigate to the root directory of this project and type-
 ```sh
 npm install
@@ -19,7 +19,7 @@ npm start
 * III) Click on 'Collect Info' in the Navbar.
 * IV) Input an absolute or relative save destination for your CSV file and click the 'Process' button.
 * V) View the info in the new window about the CSV file created.
-* VI) Locate your new CSV file in destination you had selected.
+* VI) Locate your new CSV file in the destination you had selected.
 
 ![alt text](src/public/images/readme/readme-sample-form.png)
 
