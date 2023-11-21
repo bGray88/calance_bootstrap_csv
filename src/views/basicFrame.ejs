@@ -17,6 +17,9 @@
         <% if (typeof description !== "undefined") { %>
           <h3> <%= description %> </h3>
         <% } %>
+        <% if (typeof disclaimer !== "undefined") { %>
+          <h4> <%= disclaimer %> </h4>
+        <% } %>
         <% if (typeof page !== "undefined") { %>
           <%- include('./partials/' + page); %>
         <% } %>

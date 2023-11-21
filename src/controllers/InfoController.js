@@ -19,8 +19,8 @@ const displayForm = async (req, res) => {
   const data = {
     page: "input",
     title: "Github CSV Data",
-    description: 'Please type a destination directory and click the process button to start. \
-      (Relative directory will be used if a full path is not given)'
+    description: 'Please type a destination directory and click the process button to start.',
+    disclaimer: '(Relative directory will be used if a full path is not given)'
   };
   res.status(200);
   res.render('basicFrame', data);

@@ -1,27 +1,40 @@
-const assert         = require('assert');
-const axios          = require('axios');
-const { faker }      = require('@faker-js/faker')
+const { generateOptions } = require('../../../src/utils/utils');
+const axios  = require('axios')
+const assert = require('assert');
 
 describe('Info', function () {
-  describe('#assignToUser()', function () {
-    it('should save a quote to a user profile', async function () {
+  describe('#processInfo', function () {
+    it('should fetch data from API and parse as format requested', async function () {
+
+      const options = generateOptions(`/repos/twbs/bootstrap/releases`);
+      let repos = []
+
+      await axios.get(options.url, { headers: options.headers })
+        .then((res) => {
+          repos = res.data
+      }).catch('error', (err) => {
+          console.log(err);
+          res.status(500).send({
+            message: constants.errorMessage
+          });
+      })
+
+      if (repos) {
+        repos = repos.map((repo) => (
+          {
+            created_at: new Date(repo.created_at).toUTCString(),
+            tag_name: repo.tag_name,
+            zipball_url: repo.zipball_url
+          }
+        ))
+      }
       
-      // try {
-      //   quoteCreateResponse = await axios.post('http://localhost:3001/api/v1/quotes/assignQuoteToUser', vehicleQuote, {withCredentials: true})
-      //   quote = quoteCreateResponse.data.quote;
-      // } catch(err) {
-      //   console.log(err);
-      // }
-
-      // const updatedUserResponse    = await axios.get('http://localhost:3001/api/v1/auth/getUser', { params: {_id: vehicleUser._id, withCredentials: true} })
-      // const updatedUser = updatedUserResponse.data.user;
-      // const updatedVehicleResponse = await axios.get('http://localhost:3001/api/v1/vehicles/getVehicle', { params: {_id: vehicle._id, withCredentials: true} })
-      // const updatedVehicle = updatedVehicleResponse.data.vehicle;
-
-      // assert.equal(updatedUser.quotes[0], quote._id)
-      // assert.equal(updatedVehicle.quotes[0], quote._id)
-      // assert.equal(quote.status, vehicleQuote.status);
-      // assert.equal(quote.price, vehicleQuote.price);
+      assert.equal(typeof(repos[0].created_at), "string");
+      assert.equal(Object.prototype.toString.call(new Date(repos[0].created_at)), "[object Date]");
+      assert.equal(typeof(repos[0].tag_name), "string");
+      assert.equal(/^v\d\.\d\.\d$/.test(repos[0].tag_name), true);
+      assert.equal(typeof(repos[0].zipball_url), "string");
+      assert.equal(repos[0].zipball_url.includes("https://api.github.com"), true);
     });
   });
-});
+})
